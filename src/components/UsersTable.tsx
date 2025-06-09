@@ -1,11 +1,19 @@
 import type { User } from '../types/user';
 import styles from './UsersTable.module.css';
+import UserDetailModal from './UserDetailModal';
+import { useModal } from '../hooks/useModal';
 
 interface UsersTableProps {
   users: User[];
 }
 
 export default function UsersTable({ users }: UsersTableProps) {
+  const { openModal } = useModal();
+
+  const handleRowClick = (user: User) => {
+    openModal(UserDetailModal, { user });
+  };
+
   return (
     <table className={styles.table}>
       <thead>
@@ -19,7 +27,14 @@ export default function UsersTable({ users }: UsersTableProps) {
       </thead>
       <tbody>
         {users.map((user) => (
-          <tr key={user.id}>
+          <tr
+            key={user.id}
+            className={styles.clickableRow}
+            tabIndex={0}
+            aria-label={`Show details for ${user.name}`}
+            onClick={() => handleRowClick(user)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleRowClick(user); }}
+          >
             <td>
               <div className={styles.userName}>{user.name}</div>
               <div>{user.email}</div>
@@ -34,6 +49,7 @@ export default function UsersTable({ users }: UsersTableProps) {
                 className={styles.websiteLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={e => e.stopPropagation()}
               >
                 {user.website}
               </a>
