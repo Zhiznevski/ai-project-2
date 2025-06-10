@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactNode, ComponentType } from 'react';
 
@@ -59,11 +59,3 @@ export function ModalProvider({ children }: { children: ReactNode }) {
     </ModalContext.Provider>
   );
 }
-
-export function useModalContext() {
-  const context = useContext(ModalContext);
-  if (!context) {
-    throw new Error('useModalContext must be used within a ModalProvider');
-  }
-  return context;
-} 

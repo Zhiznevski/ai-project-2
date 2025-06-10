@@ -1,14 +1,13 @@
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background: rgba(30, 41, 59, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  pointer-events: auto;
+  touch-action: none;
 }
 
 .modal {
@@ -20,11 +19,30 @@
   padding: 32px 32px 28px 32px;
   position: relative;
   animation: fadeIn 0.2s;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .modal {
+    max-width: 95vw;
+    width: 95vw;
+    min-width: unset;
+    padding: 20px 8px 16px 8px;
+    border-radius: 16px 16px 0 0;
+    margin: 0;
+    max-height: 95vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  .overlay {
+    align-items: center;
+    padding: 0;
+  }
 }
 
 .closeButton {

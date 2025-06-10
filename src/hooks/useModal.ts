@@ -1,4 +1,5 @@
-import { useModalContext } from '../context/ModalContext';
+import { useModalContext } from "./useModalContext";
+
 
 export function useModal() {
   const { openModal, closeModal, closeAllModals } = useModalContext();

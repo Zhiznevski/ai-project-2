@@ -1,5 +1,6 @@
 import type { User } from '../types/user';
 import styles from './UserDetailModal.module.css';
+import { useEffect } from 'react';
 
 interface UserDetailModalProps {
   user: User;
@@ -8,6 +9,14 @@ interface UserDetailModalProps {
 
 export default function UserDetailModal({ user, onClose }: UserDetailModalProps) {
   const mapUrl = `https://www.google.com/maps?q=${user.address.geo.lat},${user.address.geo.lng}`;
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   return (
     <div className={styles.overlay} tabIndex={-1} aria-modal="true" role="dialog">
